@@ -12,7 +12,7 @@ module.exports = {
   entry: './src/index',
   output: {
     path: __dirname + '/build/',
-    filename: 'griddle-remote-plugin.js',
+    filename: 'griddle-position-plugin.js',
     publicPath: '/build/',
     libraryTarget: 'umd'
   },

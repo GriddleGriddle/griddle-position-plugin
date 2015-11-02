@@ -7,7 +7,7 @@ export default PositionTable => class extends Component {
 
   _scroll = () => {
     if (this.refs.scrollable) {
-      let scrollableNode = this.refs.scrollable.getDOMNode();
+      let scrollableNode = this.refs.scrollable;
       this.props.events.setScrollPosition(scrollableNode.scrollLeft, scrollableNode.scrollWidth, scrollableNode.scrollTop, scrollableNode.scrollHeight);
     }
   }

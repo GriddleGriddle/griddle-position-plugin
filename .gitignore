@@ -32,3 +32,5 @@ docs/html
 .lock-wscript
 
 build/
+
+.DS_Store

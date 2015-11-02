@@ -2,7 +2,7 @@
   "name": "griddle-position-plugin",
   "version": "0.0.1",
   "description": "A plugin for partial rendering of data.",
-  "main": "index.js",
+  "main": "./build/griddle-position-plugin.js",
   "scripts": {
     "test": "karma start --browsers PhantomJS",
     "start": "./node_modules/.bin/webpack --config webpack.config.js --watch",
