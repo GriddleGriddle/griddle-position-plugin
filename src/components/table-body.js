@@ -7,11 +7,11 @@ class TableBody extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return this.props.data !== nextProps.data;
+    return this.props.renderedData !== nextProps.renderedData;
   }
 
   render() {
-    var rows = this.props.data
+    var rows = this.props.renderedData
     .filter(data => data.visible === undefined || data.visible === true)
     .map((data, index) =>
       <this.props.components.Row rowData={data}

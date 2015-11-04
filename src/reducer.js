@@ -21,6 +21,7 @@ export function GRIDDLE_PREVIOUS_PAGE_AFTER(state, action, helpers) {
 }
 
 export function GRIDDLE_FILTERED_AFTER(state, action, helpers) {
+  state = helpers.setCurrentPosition(state, 0, 0);
   return helpers.updateRenderedData(state, helpers);
 }
 

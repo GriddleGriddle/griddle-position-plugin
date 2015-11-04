@@ -12,6 +12,9 @@ export function shouldUpdateDrawnRows(action, state) {
   let yScrollChangePosition = state.getIn(['currentPosition', 'yScrollChangePosition']);
   let rowHeight = state.getIn(['currentPosition', 'rowHeight']);
 
+  console.log(action.yScrollPosition - yScrollChangePosition);
+  console.log(rowHeight);
+
   return Math.abs(action.yScrollPosition - yScrollChangePosition) >= rowHeight;
 }
 
@@ -31,12 +34,17 @@ export function updatePositionProperties(action, state, helpers, force) {
   let renderedStartDisplayIndex = Math.max(0, Math.floor(Math.floor(action.yScrollPosition / adjustedHeight) - visibleRecordCount * 0.25));
   let renderedEndDisplayIndex = Math.min(Math.floor(renderedStartDisplayIndex + visibleRecordCount * 1.25), visibleDataLength - 1) + 1;
 
+  state = setCurrentPosition(state, action.yScrollPosition, action.xScrollPosition);
   return state
     .setIn(['currentPosition', 'renderedStartDisplayIndex'], renderedStartDisplayIndex)
     .setIn(['currentPosition', 'renderedEndDisplayIndex'], renderedEndDisplayIndex)
-    .setIn(['currentPosition', 'visibleDataLength'], visibleDataLength)
-    .setIn(['currentPosition', 'yScrollChangePosition'], action.yScrollPosition)
-    .setIn(['currentPosition', 'xScrollChangePosition'], action.xScrollPosition);
+    .setIn(['currentPosition', 'visibleDataLength'], visibleDataLength);
+}
+
+export function setCurrentPosition(state, yScrollPosition, xScrollPosition) {
+  return state
+    .setIn(['currentPosition', 'yScrollChangePosition'], yScrollPosition)
+    .setIn(['currentPosition', 'xScrollChangePosition'], xScrollPosition);
 }
 
 export function updateRenderedData(state, helpers) {

@@ -24,8 +24,6 @@ class SpacerRow extends React.Component {
 
     spacerRowStyle.height = height + 'px';
 
-    console.log(`SPACER ${placement}: ${height}`);
-
     return (
       <tr key={placement + '-' + height} style={spacerRowStyle}></tr>
     );
