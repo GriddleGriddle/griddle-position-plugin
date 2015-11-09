@@ -10,10 +10,7 @@ export function getPositionData(state) {
 
 export function shouldUpdateDrawnRows(action, state) {
   let yScrollChangePosition = state.getIn(['currentPosition', 'yScrollChangePosition']);
-  let rowHeight = state.getIn(['currentPosition', 'rowHeight']);
-
-  console.log(action.yScrollPosition - yScrollChangePosition);
-  console.log(rowHeight);
+  let rowHeight = state.getIn(['positionConfig', 'rowHeight']);
 
   return Math.abs(action.yScrollPosition - yScrollChangePosition) >= rowHeight;
 }
@@ -22,8 +19,8 @@ export function updatePositionProperties(action, state, helpers, force) {
   if (!action.force && !helpers.shouldUpdateDrawnRows(action, state)) {
     return state; // Indicate that this shouldn't result in an emit.
   }
-  let rowHeight = state.getIn(['currentPosition', 'rowHeight']);
-  let tableHeight = state.getIn(['currentPosition', 'tableHeight']);
+  let rowHeight = state.getIn(['positionConfig', 'rowHeight']);
+  let tableHeight = state.getIn(['positionConfig', 'tableHeight']);
 
   let adjustedHeight = rowHeight;
   let visibleRecordCount = Math.ceil(tableHeight / adjustedHeight);

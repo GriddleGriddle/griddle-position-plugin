@@ -5,12 +5,17 @@ import * as reducers from './reducer';
 import { default as initialState } from './initial-state';
 import * as components from './components/';
 
-export default {
-  name: 'GriddlePosition',
-  actions,
-  constants,
-  helpers: helpers,
-  states: initialState,
-  reducers,
-  components
+export default function PositionPlugin(config = {}) {
+  Object.assign(initialState, { positionConfig: config })
+
+  console.log(initialState.positionConfig.rowHeight);
+  return {
+    name: 'GriddlePosition',
+    actions,
+    constants,
+    helpers: helpers,
+    states: initialState(config),
+    reducers,
+    components
+  };
 };

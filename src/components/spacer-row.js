@@ -11,7 +11,7 @@ class SpacerRow extends React.Component {
 
   render() {
     let height = 0, spacerRowStyle = {};
-    const { placement, currentPosition } = this.props;
+    const { placement, currentPosition, positionConfig } = this.props;
 
     if (currentPosition) {
       // Get the length of rows that the spacer row will represent.
@@ -19,7 +19,7 @@ class SpacerRow extends React.Component {
         currentPosition.visibleDataLength - currentPosition.renderedEndDisplayIndex;
 
       // Get the height in pixels.
-      height = currentPosition.rowHeight * spacerRowCount;
+      height = positionConfig.rowHeight * spacerRowCount;
     }
 
     spacerRowStyle.height = height + 'px';

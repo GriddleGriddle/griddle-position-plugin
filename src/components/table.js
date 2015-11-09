@@ -13,11 +13,11 @@ export default PositionTable => class extends Component {
   }
 
   render() {
-    const { currentPosition } = this.props;
+    const { positionConfig } = this.props;
 
     const wrapperStyle = {
-      'height': currentPosition.tableHeight + 'px',
-      'width': currentPosition.tableWidth + 'px',
+      'height': positionConfig.tableHeight ? positionConfig.tableHeight + 'px' : null,
+      'width': positionConfig.tableWidth ? positionConfig.tableWidth + 'px' : null,
       'overflow': 'scroll'
     };
 
