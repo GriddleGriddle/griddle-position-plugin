@@ -5,7 +5,7 @@ export default TableHeadingCell => class extends Component {
     const { positionConfig } = this.props;
     const style = {
       'width': positionConfig.defaultColumnWidth ? positionConfig.defaultColumnWidth + 'px' : null,
-      'text-align': 'left'
+      'textAlign': 'left'
     };
     return (
       <TableHeadingCell {...this.props} style={style}/>
