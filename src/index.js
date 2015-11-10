@@ -6,9 +6,6 @@ import { default as initialState } from './initial-state';
 import * as components from './components/';
 
 export default function PositionPlugin(config = {}) {
-  Object.assign(initialState, { positionConfig: config })
-
-  console.log(initialState.positionConfig.rowHeight);
   return {
     name: 'GriddlePosition',
     actions,
