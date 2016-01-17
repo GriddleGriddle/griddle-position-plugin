@@ -24,6 +24,7 @@ module.exports = {
   externals: {
     'react': reactExternal,
     'griddle-core': 'griddle-core',
+    'griddle-render': 'griddle-render',
     'immutable': 'immutable'
   },
   module: {

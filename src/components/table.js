@@ -13,16 +13,20 @@ export default PositionTable => class extends Component {
   }
 
   render() {
-    const { positionConfig } = this.props;
+    const { positionConfig, styles } = this.props;
 
-    const wrapperStyle = {
-      'height': positionConfig.tableHeight ? positionConfig.tableHeight + 'px' : null,
-      'width': positionConfig.tableWidth ? positionConfig.tableWidth + 'px' : null,
-      'overflow': 'scroll'
-    };
+    const style = styles.getStyle({
+      mergeStyles: {
+        'height': positionConfig.tableHeight ? positionConfig.tableHeight + 'px' : null,
+        'width': positionConfig.tableWidth ? positionConfig.tableWidth + 'px' : null,
+        'overflow': positionConfig.tableHeight && positionConfig.tableWidth ? 'scroll' : null,
+        'overflowY' : positionConfig.tableHeight && !positionConfig.tableWidth ? 'scroll' : null,
+        'overflowX' : !positionConfig.tableHeight && positionConfig.tableWidth ? 'scroll' : null,
+      }
+    });
 
     return (
-      <div ref="scrollable" onScroll={this._scroll} style={wrapperStyle}>
+      <div ref="scrollable" onScroll={this._scroll} style={style}>
         <PositionTable {...this.props} />
       </div>
     );

@@ -1,5 +1,6 @@
 import React from 'react';
 import SpacerRow from './spacer-row';
+import { StyleHelpers } from 'griddle-render';
 
 class TableBody extends React.Component {
   constructor(props, context) {
@@ -27,8 +28,10 @@ class TableBody extends React.Component {
       columnProperties={this.props.renderProperties.columnProperties} />
     );
 
+    const { style, className } = StyleHelpers.getStyleProperties(this.props, 'tableBody');
+
     return (
-      <tbody>
+      <tbody style={style} className={className}>
         <SpacerRow placement='top' {...this.props} />
         {rows}
         <SpacerRow placement='bottom' {...this.props} />
