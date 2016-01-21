@@ -15,12 +15,17 @@ class TableBody extends React.Component {
     var rows = this.props.renderedData
     .filter(data => data.visible === undefined || data.visible === true)
     .map((data, index) =>
-      <this.props.components.Row
-        rowData={data}
-        key={data.griddleKey}
+      <this.props.components.Row rowData={data}
+        key={data.__metadata.griddleKey}
+        components={this.props.components}
+        events={this.props.events}
         rowIndex={index}
-        {...props}
-      />
+        rowProperties={this.props.renderProperties.rowProperties}
+        styles={this.props.styles}
+        settings={this.props.settings}
+        tableProperties={this.props.tableProperties}
+        ignoredColumns={this.props.renderProperties.ignoredColumns}
+        columnProperties={this.props.renderProperties.columnProperties} />
     );
 
     const { style, className } = StyleHelpers.getStyleProperties(this.props, 'tableBody');

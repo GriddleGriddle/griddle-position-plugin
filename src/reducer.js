@@ -28,3 +28,11 @@ export function GRIDDLE_FILTERED_AFTER(state, action, helpers) {
 export function GRIDDLE_SORT_AFTER(state, action, helpers) {
   return helpers.updateRenderedData(state, helpers);
 }
+
+export function AFTER_REDUCE(state, action, helpers) {
+  const data = state.get('renderedData');
+  const columns = helpers.getDataColumns(state, data)
+
+  return state
+    .set('renderedData', helpers.getVisibleDataColumns(helpers.getSortedColumns(data, columns), columns));
+}
