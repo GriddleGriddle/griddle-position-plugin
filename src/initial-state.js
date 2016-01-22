@@ -15,6 +15,7 @@ export default function initialState(config = {}) {
       tableWidth: null,
       rowHeight: 20,
       defaultColumnWidth: 100,
+      fixedHeader: true,
       ...config
     },
     renderedData: []
