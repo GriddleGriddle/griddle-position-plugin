@@ -18,11 +18,11 @@ class Table extends React.Component {
     const { positionConfig, settings, styles } = this.props;
     const positionStyle = styles.getStyle({
       mergeStyles: {
-        'height': positionConfig.tableHeight ? positionConfig.tableHeight + 'px' : null,
-        'width': positionConfig.tableWidth ? positionConfig.tableWidth + 'px' : null,
         'overflow': positionConfig.tableHeight && positionConfig.tableWidth ? 'scroll' : null,
         'overflowY' : positionConfig.tableHeight && !positionConfig.tableWidth ? 'scroll' : null,
         'overflowX' : !positionConfig.tableHeight && positionConfig.tableWidth ? 'scroll' : null,
+        'height': positionConfig.tableHeight ? positionConfig.tableHeight + 'px' : null,
+        'width': positionConfig.tableWidth ? positionConfig.tableWidth + 'px' : null
       }
     });
     const style = styles.getStyle({
@@ -42,7 +42,7 @@ class Table extends React.Component {
     //translate the definition object to props for Heading / Body
     return this.props.data.length > 0 ? (
       <div>
-        {positionConfig.fixedHeader ? <table>{headerContent}</table> : null}
+        {positionConfig.fixedHeader ? <table style={settings.useFixedTable && style}>{headerContent}</table> : null}
         <div ref="scrollable" onScroll={this._scroll} style={positionStyle}>
           <table
             className={className}
