@@ -17,6 +17,8 @@ class Table extends React.Component {
   render() {
     const { positionConfig, settings, styles } = this.props;
     const positionStyle = styles.getStyle({
+      styles: styles.inlineStyles,
+      styleName: 'table',
       mergeStyles: {
         'overflow': positionConfig.tableHeight && positionConfig.tableWidth ? 'scroll' : null,
         'overflowY' : positionConfig.tableHeight && !positionConfig.tableWidth ? 'scroll' : null,
@@ -26,7 +28,6 @@ class Table extends React.Component {
       }
     });
     const style = styles.getStyle({
-      useStyles: settings.useGriddleStyles,
       styles: styles.inlineStyles,
       styleName: 'table',
       mergeStyles: settings.useFixedTable && styles.getStyle({

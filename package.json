@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "immutable": "^3.7.2",
+    "node-libs-browser": "^0.5.3",
     "object-assign": "~2.0.0",
     "react": "^0.14.0"
   }
