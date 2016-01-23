@@ -25,7 +25,10 @@ class TableBody extends React.Component {
         settings={this.props.settings}
         tableProperties={this.props.tableProperties}
         ignoredColumns={this.props.renderProperties.ignoredColumns}
-        columnProperties={this.props.renderProperties.columnProperties} />
+        columnProperties={this.props.renderProperties.columnProperties} 
+        // Position specific props
+        positionConfig={this.props.positionConfig}
+        />
     );
 
     const { style, className } = StyleHelpers.getStyleProperties(this.props, 'tableBody');
