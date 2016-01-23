@@ -45,9 +45,12 @@ export function setCurrentPosition(state, yScrollPosition, xScrollPosition) {
 }
 
 export function updateRenderedData(state, helpers) {
-  let startDisplayIndex = state.getIn(['currentPosition', 'renderedStartDisplayIndex']);
+  const startDisplayIndex = state.getIn(['currentPosition', 'renderedStartDisplayIndex']);
+  const columns = helpers.getDataColumns(state, data);
+  const data = helpers.getDataSet(state);
+
   return state
-    .set('renderedData', helpers.getDataSet(state)
+    .set('renderedData', helpers.getVisibleDataColumns(helpers.getSortedColumns(data, columns), columns)
                           .skip(startDisplayIndex)
                           .take(state.getIn(['currentPosition', 'renderedEndDisplayIndex']) - startDisplayIndex));
 }
