@@ -12,24 +12,26 @@ class TableBody extends React.Component {
   }
 
   render() {
-    var rows = this.props.renderedData
-    .filter(data => data.visible === undefined || data.visible === true)
-    .map((data, index) =>
-      <this.props.components.Row rowData={data}
-        key={data.__metadata.griddleKey}
-        components={this.props.components}
-        events={this.props.events}
-        rowIndex={index}
-        rowProperties={this.props.renderProperties.rowProperties}
-        styles={this.props.styles}
-        settings={this.props.settings}
-        tableProperties={this.props.tableProperties}
-        ignoredColumns={this.props.renderProperties.ignoredColumns}
-        columnProperties={this.props.renderProperties.columnProperties} 
-        // Position specific props
-        positionConfig={this.props.positionConfig}
-        />
-    );
+    const { renderedData, loading, components, styles, settings, events, renderProperties, tableProperties, positionConfig } = this.props;
+
+    const rows = this.props.renderedData
+          .filter(data => data.visible === undefined || data.visible === true)
+          .map((data, index) =>
+            <this.props.components.Row rowData={data}
+              key={data.__metadata.griddleKey}
+              components={components}
+              events={events}
+              rowIndex={index}
+              rowProperties={renderProperties.rowProperties}
+              styles={styles}
+              settings={settings}
+              tableProperties={tableProperties}
+              ignoredColumns={renderProperties.ignoredColumns}
+              columnProperties={renderProperties.columnProperties} 
+              // Position specific props
+              positionConfig={positionConfig}
+              />)
+          .concat(loading ? [<components.Loading key='loading-row' components={components} styles={styles} settings={settings} events={events} />] :[]);
 
     const { style, className } = StyleHelpers.getStyleProperties(this.props, 'tableBody');
 

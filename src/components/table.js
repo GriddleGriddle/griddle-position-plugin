@@ -13,15 +13,26 @@ class Table extends React.Component {
     this._scroll();
   }
 
-  _scroll = () => {
+  componentWillReceiveProps(nextProps) {
+    this._checkToLoadNewPage(nextProps);
+  }
+
+  _checkToLoadNewPage = (props) => {
     if (this.refs.scrollable) {
-      const { events, loadNext, positionConfig, hasNext } = this.props;
+      const { events, positionConfig, loading, hasNext } = props;
       const scrollableNode = this.refs.scrollable;
 
       // Load the next page, if necessary
-      if (hasNext && shouldLoadAdditionalPage(scrollableNode, positionConfig)) {
-        loadNext();
+      if (!loading && hasNext && shouldLoadAdditionalPage(scrollableNode, positionConfig)) {
+        events.getNextPage();
       }
+    }
+  }
+
+  _scroll = () => {
+    if (this.refs.scrollable) {
+      const { events } = this.props;
+      const scrollableNode = this.refs.scrollable;
 
       events.setScrollPosition(scrollableNode.scrollLeft, scrollableNode.scrollWidth, scrollableNode.scrollTop, scrollableNode.scrollHeight, scrollableNode.clientHeight);
     }
