@@ -1,4 +1,5 @@
 import * as types from './constants';
+import { GriddleActions } from 'griddle-core';
 
 export function resizeColumn(column, change) {
   return {

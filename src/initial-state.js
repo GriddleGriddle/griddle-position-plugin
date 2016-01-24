@@ -7,14 +7,14 @@ export default function initialState(config = {}) {
       yScrollChangePosition: 0,
       renderedStartDisplayIndex: 0,
       renderedEndDisplayIndex: 20,
-      visibleDataLength: 20,
-      infiniteScrollLoadTreshold: 50
+      visibleDataLength: 20
     },
     positionConfig: {
       tableHeight: 500,
       tableWidth: null,
       rowHeight: 20,
       defaultColumnWidth: null,
+      infiniteScrollLoadTreshold: 50,
       fixedHeader: true,
       ...config
     },

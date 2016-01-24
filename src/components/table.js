@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { StyleHelpers } from 'griddle-render';
+import { shouldLoadAdditionalPage } from './utils/';
 
 class Table extends React.Component {
   constructor(props, context) {
@@ -7,10 +8,22 @@ class Table extends React.Component {
     this.state = {};
   }
 
+  componentDidMount() {
+    // Trigger an initial scroll
+    this._scroll();
+  }
+
   _scroll = () => {
     if (this.refs.scrollable) {
-      let scrollableNode = this.refs.scrollable;
-      this.props.events.setScrollPosition(scrollableNode.scrollLeft, scrollableNode.scrollWidth, scrollableNode.scrollTop, scrollableNode.scrollHeight);
+      const { events, loadNext, positionConfig, hasNext } = this.props;
+      const scrollableNode = this.refs.scrollable;
+
+      // Load the next page, if necessary
+      if (hasNext && shouldLoadAdditionalPage(scrollableNode, positionConfig)) {
+        loadNext();
+      }
+
+      events.setScrollPosition(scrollableNode.scrollLeft, scrollableNode.scrollWidth, scrollableNode.scrollTop, scrollableNode.scrollHeight, scrollableNode.clientHeight);
     }
   }
 
