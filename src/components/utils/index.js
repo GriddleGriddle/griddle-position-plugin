@@ -4,7 +4,7 @@ export function shouldLoadAdditionalPage(scrollableNode, positionConfig) {
   const scrollHeightDiff = scrollHeight - (scrollTop + clientHeight);
 
   // Make sure that we load results a little before reaching the bottom.
-  const compareHeight = scrollHeightDiff * 0.8;
+  const compareHeight = scrollHeightDiff * 0.7;
 
   // Load the next page if necessary.
   return compareHeight <= positionConfig.infiniteScrollLoadTreshold;

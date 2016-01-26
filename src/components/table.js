@@ -8,11 +8,6 @@ class Table extends React.Component {
     this.state = {};
   }
 
-  componentDidMount() {
-    // Trigger an initial scroll
-    this._scroll();
-  }
-
   componentWillReceiveProps(nextProps) {
     this._checkToLoadNewPage(nextProps);
   }
@@ -21,7 +16,6 @@ class Table extends React.Component {
     if (this.refs.scrollable) {
       const { events, positionConfig, loading, hasNext } = props;
       const scrollableNode = this.refs.scrollable;
-
       // Load the next page, if necessary
       if (!loading && hasNext && shouldLoadAdditionalPage(scrollableNode, positionConfig)) {
         events.getNextPage();
