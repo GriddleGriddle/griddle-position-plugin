@@ -2,13 +2,29 @@ import React from 'react';
 import SpacerRow from './spacer-row';
 import { StyleHelpers } from 'griddle-render';
 
+//From: http://stackoverflow.com/questions/3115982/how-to-check-if-two-arrays-are-equal-with-javascript
+//TODO: Use with lodash instead -- it appears that lodash global is getting clobbered at least with 4.0
+function arraysEqual(a, b) {
+  if (a === b) return true;
+  if (a == null || b == null) return false;
+  if (a.length != b.length) return false;
+
+  // If you don't care about the order of the elements inside
+  // the array, you should sort both arrays here.
+
+  for (var i = 0; i < a.length; ++i) {
+    if (a[i] !== b[i]) return false;
+  }
+  return true;
+}
+
 class TableBody extends React.Component {
   constructor(props, context) {
     super(props, context);
   }
 
   shouldComponentUpdate(nextProps) {
-    return this.props.renderedData !== nextProps.renderedData;
+    return !arraysEqual(nextProps.renderedData, this.props.renderedData);
   }
 
   render() {
