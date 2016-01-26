@@ -17,7 +17,7 @@ class Table extends React.Component {
       const { events, positionConfig, loading, hasNext } = props;
       const scrollableNode = this.refs.scrollable;
       // Load the next page, if necessary
-      if (!loading && hasNext && shouldLoadAdditionalPage(scrollableNode, positionConfig)) {
+      if (!loading && hasNext && shouldLoadAdditionalPage(props)) {
         events.getNextPage();
       }
     }

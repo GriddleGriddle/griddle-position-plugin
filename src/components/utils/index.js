@@ -1,11 +1,7 @@
-export function shouldLoadAdditionalPage(scrollableNode, positionConfig) {
-  const { scrollLeft, scrollWidth, scrollTop, scrollHeight, clientHeight } = scrollableNode;
-
-  const scrollHeightDiff = scrollHeight - (scrollTop + clientHeight);
-
-  // Make sure that we load results a little before reaching the bottom.
-  const compareHeight = scrollHeightDiff * 0.7;
+export function shouldLoadAdditionalPage(props) {
+  const { positionConfig, renderedData, currentPosition } = props;
+  const displayedIndexCount = currentPosition.renderedEndDisplayIndex - currentPosition.renderedStartDisplayIndex;
 
   // Load the next page if necessary.
-  return compareHeight <= positionConfig.infiniteScrollLoadTreshold;
+  return renderedData.length < displayedIndexCount;
 }
