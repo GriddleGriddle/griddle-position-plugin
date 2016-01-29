@@ -61,7 +61,7 @@ class Table extends React.Component {
     //translate the definition object to props for Heading / Body
     return this.props.data.length > 0 ? (
       <div>
-        {positionConfig.fixedHeader ? <table style={settings.useFixedTable && style}>{headerContent}</table> : null}
+        {positionConfig.fixedHeader ? <table style={settings.useFixedTable && style} className={className}>{headerContent}</table> : null}
         <div ref="scrollable" onScroll={this._scroll} style={positionStyle}>
           <table
             className={className}
