@@ -1,11 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { StyleHelpers } from 'griddle-render';
 import { shouldLoadAdditionalPage } from './utils/';
+import debounce from 'lodash.debounce';
 
 class Table extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {};
+    this._scroll = debounce(this._scroll, 2);
   }
 
   componentWillReceiveProps(nextProps) {
