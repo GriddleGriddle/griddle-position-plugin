@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { StyleHelpers } from 'griddle-render';
 import { shouldLoadAdditionalPage } from './utils/';
 import debounce from 'lodash.debounce';
-import throttle from 'lodash.throttle';
 
 class Table extends React.Component {
   constructor(props, context) {
