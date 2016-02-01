@@ -1,6 +1,13 @@
 import Immutable from 'immutable';
 import { default as initialState } from './initial-state';
 
+function getVisibleRecordCount(state) {
+  const rowHeight = state.getIn(['positionConfig', 'rowHeight']);
+  const tableHeight = state.getIn(['positionConfig', 'tableHeight']);
+
+  return Math.ceil(tableHeight / rowHeight);
+}
+
 export function getRenderedData(state) {
   state = state;
   return state.get('renderedData');
@@ -13,27 +20,37 @@ export function getPositionData(state) {
 
 export function shouldUpdateDrawnRows(action, state) {
   let yScrollChangePosition = state.getIn(['currentPosition', 'yScrollChangePosition']);
-  let rowHeight = state.getIn(['positionConfig', 'rowHeight']);
+  const rowHeight = state.getIn(['positionConfig', 'rowHeight']);
 
-  return Math.abs(action.yScrollPosition - yScrollChangePosition) >= rowHeight;
+  // Get the current visible record count.
+  const visibleRecordCount = getVisibleRecordCount(state);
+
+  // Get the count of rendered rows.
+  const startDisplayIndex = state.getIn(['currentPosition', 'renderedStartDisplayIndex']);
+  const endDisplayIndex = state.getIn(['currentPosition', 'renderedEndDisplayIndex']);
+  const renderedRecordCount = endDisplayIndex - startDisplayIndex;
+
+  // Calculate the height of a third of the difference.
+  const rowDifferenceHeight = rowHeight * (renderedRecordCount - visibleRecordCount) / 3;
+
+  return Math.abs(action.yScrollPosition - yScrollChangePosition) >= rowDifferenceHeight;
 }
 
 export function updatePositionProperties(action, state, helpers, force) {
-  if (!action.force && !helpers.shouldUpdateDrawnRows(action, state) && !Immutable.is(state.get('positionConfig'), initialState().get('positionConfig'))) {
+  if (!action.force && !helpers.shouldUpdateDrawnRows(action, state) && !Immutable.is(state.get('currentPosition'), initialState().get('currentPosition'))) {
     return state; // Indicate that this shouldn't result in an emit.
   }
-  const rowHeight = state.getIn(['positionConfig', 'rowHeight']);
-  const tableHeight = state.getIn(['positionConfig', 'tableHeight']);
-
-  const visibleRecordCount = Math.ceil(tableHeight / rowHeight);
+  const visibleRecordCount = getVisibleRecordCount(state);
   const visibleDataLength = helpers.getDataSetSize(state);
+
+  const rowHeight = state.getIn(['positionConfig', 'rowHeight']);
 
   const verticalScrollPosition = action.yScrollPosition || 0;
   const horizontalScrollPosition = action.xScrollPosition || 0;
 
   // Inspired by : http://jsfiddle.net/vjeux/KbWJ2/9/
   let renderedStartDisplayIndex = Math.max(0, Math.floor(Math.floor(verticalScrollPosition / rowHeight) - visibleRecordCount * 0.25));
-  let renderedEndDisplayIndex = Math.min(Math.floor(renderedStartDisplayIndex + visibleRecordCount * 1.25), visibleDataLength - 1) + 1;
+  let renderedEndDisplayIndex = Math.min(Math.floor(renderedStartDisplayIndex + visibleRecordCount * 2), visibleDataLength - 1) + 1;
 
   state = setCurrentPosition(state, verticalScrollPosition, horizontalScrollPosition);
   return state

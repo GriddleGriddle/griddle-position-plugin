@@ -7,7 +7,7 @@ class Table extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {};
-    this._scroll = debounce(this._scroll, 2);
+    //this._scroll = debounce(this._scroll, 2, { maxWait: 6 });
   }
 
   componentWillReceiveProps(nextProps) {
