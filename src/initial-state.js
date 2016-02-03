@@ -14,7 +14,6 @@ export default function initialState(config = {}) {
       tableWidth: null,
       rowHeight: 30,
       defaultColumnWidth: null,
-      infiniteScrollLoadTreshold: 50,
       fixedHeader: true,
       ...config
     },
