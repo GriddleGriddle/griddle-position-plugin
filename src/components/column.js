@@ -6,6 +6,7 @@ export default Column => class extends Component {
     const style = {
       'height': positionConfig.rowHeight ? positionConfig.rowHeight + 'px' : null
     };
+
     return (
       <Column {...this.props} style={style}/>
     );
