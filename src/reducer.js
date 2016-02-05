@@ -5,7 +5,15 @@ export function XY_POSITION_CHANGED(state, action, helpers) {
 
 export function GRIDDLE_LOADED_DATA_AFTER(state, action, helpers) {
   const tempState = helpers.updatePositionProperties({ yScrollPosition: 0, xScrollPosition: 0, force: true}, state, helpers, true);
-  return helpers.updateRenderedData(tempState, helpers);
+
+  const columnProperties = state.get('renderProperties').get('columnProperties');
+
+  //TODO: Clean this up and make this happen in core instead of here
+  const sorted =  helpers
+      .sortDataByColumns(tempState, helpers)
+      .setIn(['pageProperties', 'currentPage'], 1)
+
+  return helpers.updateRenderedData(sorted, helpers);
 }
 
 export function GRIDDLE_GET_PAGE_AFTER(state, action, helpers) {
