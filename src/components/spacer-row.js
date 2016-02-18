@@ -11,7 +11,7 @@ class SpacerRow extends React.Component {
 
   render() {
     let height = 0, spacerRowStyle = {};
-    const { placement, currentPosition, positionConfig } = this.props;
+    const {placement, currentPosition, positionConfig, renderProperties} = this.props;
 
     if (currentPosition) {
       // Get the length of rows that the spacer row will represent.
@@ -24,7 +24,11 @@ class SpacerRow extends React.Component {
 
     spacerRowStyle.height = height + 'px';
     return (
-      <tr key={placement + '-' + height} style={spacerRowStyle} />
+      <tr key={placement + '-' + height} style={spacerRowStyle}>
+        {Object.keys(renderProperties.columnProperties).map(columnName => {
+          return <td key={columnName} style={{width: renderProperties.columnProperties[columnName].width || 'auto'}}></td>
+        })}
+      </tr>
     );
   }
 }
