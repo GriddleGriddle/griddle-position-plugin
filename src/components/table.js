@@ -7,7 +7,10 @@ class Table extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {};
-    //this._scroll = debounce(this._scroll, 2, { maxWait: 6 });
+  }
+
+  componentDidMount() {
+    this._scroll();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -30,7 +33,7 @@ class Table extends React.Component {
       const { events } = this.props;
       const scrollableNode = this.refs.scrollable;
 
-      events.setScrollPosition(scrollableNode.scrollLeft, scrollableNode.scrollWidth, scrollableNode.scrollTop, scrollableNode.scrollHeight, scrollableNode.clientHeight);
+      events.setScrollPosition(scrollableNode.scrollLeft, scrollableNode.scrollWidth, scrollableNode.clientWidth, scrollableNode.scrollTop, scrollableNode.scrollHeight, scrollableNode.clientHeight);
     }
   }
 
@@ -43,8 +46,8 @@ class Table extends React.Component {
         'overflow': positionConfig.tableHeight && positionConfig.tableWidth ? 'scroll' : null,
         'overflowY' : positionConfig.tableHeight && !positionConfig.tableWidth ? 'scroll' : null,
         'overflowX' : !positionConfig.tableHeight && positionConfig.tableWidth ? 'scroll' : null,
-        'height': positionConfig.tableHeight ? positionConfig.tableHeight + 'px' : null,
-        'width': positionConfig.tableWidth ? positionConfig.tableWidth + 'px' : null
+        'height': positionConfig.tableHeight ? positionConfig.tableHeight : null,
+        'width': positionConfig.tableWidth ? positionConfig.tableWidth : null
       }
     });
     const style = styles.getStyle({

@@ -3,23 +3,28 @@ import { default as initialState } from './initial-state';
 
 function getVisibleRecordCount(state) {
   const rowHeight = state.getIn(['positionConfig', 'rowHeight']);
-  const tableHeight = state.getIn(['positionConfig', 'tableHeight']);
+  const height = state.getIn(['currentPosition', 'height']);
 
-  return Math.ceil(tableHeight / rowHeight);
+  return Math.ceil(height / rowHeight);
 }
 
 export function getRenderedData(state) {
-  state = state;
   return state.get('renderedData');
 }
 
 export function getPositionData(state) {
-  state = state;
   return state.get('currentPosition').toJS();
 }
 
 export function shouldUpdateDrawnRows(action, state) {
-  let yScrollChangePosition = state.getIn(['currentPosition', 'yScrollChangePosition']);
+  const height = state.getIn(['currentPosition', 'height']);
+  const width = state.getIn(['currentPosition', 'width']);
+
+  // If the containers have changed size, update drawn rows.
+  if (height != action.yVisible || width != action.xVisible)
+    return true;
+
+  const yScrollChangePosition = state.getIn(['currentPosition', 'yScrollChangePosition']);
   const rowHeight = state.getIn(['positionConfig', 'rowHeight']);
 
   // Get the current visible record count.
@@ -40,10 +45,12 @@ export function updatePositionProperties(action, state, helpers, force) {
   if (!action.force && !helpers.shouldUpdateDrawnRows(action, state) && !Immutable.is(state.get('currentPosition'), initialState().get('currentPosition'))) {
     return state; // Indicate that this shouldn't result in an emit.
   }
-  const visibleRecordCount = getVisibleRecordCount(state);
-  const visibleDataLength = helpers.getDataSetSize(state);
+  const sizeUpdatedState = state.setIn(['currentPosition', 'height'], action.yVisible * 1.2)
+                                .setIn(['currentPosition', 'width'], action.xVisible);
+  const visibleRecordCount = getVisibleRecordCount(sizeUpdatedState);
+  const visibleDataLength = helpers.getDataSetSize(sizeUpdatedState);
 
-  const rowHeight = state.getIn(['positionConfig', 'rowHeight']);
+  const rowHeight = sizeUpdatedState.getIn(['positionConfig', 'rowHeight']);
 
   const verticalScrollPosition = action.yScrollPosition || 0;
   const horizontalScrollPosition = action.xScrollPosition || 0;
@@ -52,11 +59,10 @@ export function updatePositionProperties(action, state, helpers, force) {
   let renderedStartDisplayIndex = Math.max(0, Math.floor(Math.floor(verticalScrollPosition / rowHeight) - visibleRecordCount * 0.25));
   let renderedEndDisplayIndex = Math.min(Math.floor(renderedStartDisplayIndex + visibleRecordCount * 2), visibleDataLength - 1) + 1;
 
-  state = setCurrentPosition(state, verticalScrollPosition, horizontalScrollPosition);
-  return state
-    .setIn(['currentPosition', 'renderedStartDisplayIndex'], renderedStartDisplayIndex)
-    .setIn(['currentPosition', 'renderedEndDisplayIndex'], renderedEndDisplayIndex)
-    .setIn(['currentPosition', 'visibleDataLength'], visibleDataLength);
+  return setCurrentPosition(sizeUpdatedState, verticalScrollPosition, horizontalScrollPosition)
+          .setIn(['currentPosition', 'renderedStartDisplayIndex'], renderedStartDisplayIndex)
+          .setIn(['currentPosition', 'renderedEndDisplayIndex'], renderedEndDisplayIndex)
+          .setIn(['currentPosition', 'visibleDataLength'], visibleDataLength);
 }
 
 export function setCurrentPosition(state, yScrollPosition, xScrollPosition) {

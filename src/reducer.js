@@ -4,7 +4,7 @@ export function XY_POSITION_CHANGED(state, action, helpers) {
 }
 
 export function GRIDDLE_LOADED_DATA_AFTER(state, action, helpers) {
-  const tempState = helpers.updatePositionProperties({ yScrollPosition: 0, xScrollPosition: 0, force: true}, state, helpers, true);
+  const tempState = helpers.updatePositionProperties({ yScrollPosition: 0, yVisible: state.getIn(['currentPosition', 'height']), xScrollPosition: 0, xVisible: state.getIn(['currentPosition', 'width']), force: true}, state, helpers, true);
 
   const columnProperties = state.get('renderProperties').get('columnProperties');
 

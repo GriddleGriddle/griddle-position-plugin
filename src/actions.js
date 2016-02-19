@@ -10,12 +10,14 @@ export function resizeColumn(column, change) {
   };
 }
 
-export function setScrollPosition(xScrollPosition, xScrollMax, yScrollPosition, yScrollMax) {
+export function setScrollPosition(xScrollPosition, xScrollMax, xVisible, yScrollPosition, yScrollMax, yVisible) {
   return {
     type: types.XY_POSITION_CHANGED,
     xScrollPosition,
     xScrollMax,
+    xVisible,
     yScrollPosition,
-    yScrollMax
+    yScrollMax,
+    yVisible
   };
 }
