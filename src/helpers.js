@@ -77,7 +77,7 @@ export function updateRenderedData(state, helpers) {
   const data = helpers.getDataSet(state);
 
   return state
-    .set('renderedData', helpers.getVisibleDataColumns(helpers.getSortedColumns(data, columns), columns)
+    .set('renderedData', helpers.getVisibleDataColumns(data, columns)
                           .skip(startDisplayIndex)
                           .take(state.getIn(['currentPosition', 'renderedEndDisplayIndex']) - startDisplayIndex));
 }
