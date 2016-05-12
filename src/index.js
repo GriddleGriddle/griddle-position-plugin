@@ -13,6 +13,6 @@ export default function PositionPlugin(config = {}) {
     helpers: helpers,
     states: initialState(config),
     reducers,
-    components
+    components: components
   };
 };

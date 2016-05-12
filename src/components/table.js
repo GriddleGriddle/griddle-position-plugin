@@ -47,9 +47,11 @@ class Table extends React.Component {
         'overflowY' : positionConfig.tableHeight && !positionConfig.tableWidth ? 'scroll' : null,
         'overflowX' : !positionConfig.tableHeight && positionConfig.tableWidth ? 'scroll' : null,
         'height': positionConfig.tableHeight ? positionConfig.tableHeight : null,
-        'width': positionConfig.tableWidth ? positionConfig.tableWidth : null
+        'width': positionConfig.tableWidth ? positionConfig.tableWidth : null,
+        'display': 'inline-block'
       }
     });
+
     const style = styles.getStyle({
       styles: styles.inlineStyles,
       styleName: 'table',
@@ -62,7 +64,7 @@ class Table extends React.Component {
 
     const { className } = StyleHelpers.getStyleProperties(this.props, 'table');
     const headerContent = <this.props.components.TableHeading columns={Object.keys(this.props.data[0])} {...this.props} />;
-
+    //
     //translate the definition object to props for Heading / Body
     return this.props.data.length > 0 ? (
       <div>

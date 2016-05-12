@@ -3,14 +3,12 @@ export function XY_POSITION_CHANGED(state, action, helpers) {
   return helpers.updateRenderedData(tempState, helpers);
 }
 
-export function GRIDDLE_LOADED_DATA_AFTER(state, action, helpers) {
-  const tempState = helpers.updatePositionProperties({ yScrollPosition: 0, yVisible: state.getIn(['currentPosition', 'height']), xScrollPosition: 0, xVisible: state.getIn(['currentPosition', 'width']), force: true}, state, helpers, true);
-
+export function GRIDDLE_INITIALIZED_AFTER(state, action, helpers) {
   const columnProperties = state.get('renderProperties').get('columnProperties');
 
   //TODO: Clean this up and make this happen in core instead of here
   const sorted =  helpers
-      .sortDataByColumns(tempState, helpers)
+      .sortDataByColumns(state, helpers)
       .setIn(['pageProperties', 'currentPage'], 1)
 
   return helpers.updateRenderedData(sorted, helpers);

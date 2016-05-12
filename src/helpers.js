@@ -45,6 +45,7 @@ export function updatePositionProperties(action, state, helpers, force) {
   if (!action.force && !helpers.shouldUpdateDrawnRows(action, state) && !Immutable.is(state.get('currentPosition'), initialState().get('currentPosition'))) {
     return state; // Indicate that this shouldn't result in an emit.
   }
+
   const sizeUpdatedState = state.setIn(['currentPosition', 'height'], action.yVisible * 1.2)
                                 .setIn(['currentPosition', 'width'], action.xVisible);
   const visibleRecordCount = getVisibleRecordCount(sizeUpdatedState);

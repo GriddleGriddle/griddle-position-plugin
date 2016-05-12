@@ -22,7 +22,6 @@
     "griddle-core": "^0.0.15",
     "griddle-render": "^0.0.18",
     "jasmine-core": "^2.2.0",
-    "jsx-loader": "~0.12.2",
     "karma": "^0.12.31",
     "karma-babel-preprocessor": "^5.0.1",
     "karma-chrome-launcher": "^0.1.8",
@@ -38,7 +37,9 @@
     "immutable": "^3.7.2",
     "lodash.debounce": "^3.1.1",
     "node-libs-browser": "^0.5.3",
-    "object-assign": "~2.0.0",
+    "object-assign": "~2.0.0"
+  },
+  "peerDependencies": {
     "react": "^0.14.0"
   }
 }
