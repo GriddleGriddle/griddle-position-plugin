@@ -4,7 +4,16 @@ class SpacerRow extends React.Component {
   static defaultProps = {
     'placement': 'top'
   }
+  shouldComponentUpdate(nextProps) {
+    if(
+      this.props.currentPosition !== nextProps.currentPosition ||
+      this.props.placement !== nextProps.placement
+    ) {
+      return true;
+    }
 
+    return false;
+  }
   constructor(props) {
     super(props);
   }

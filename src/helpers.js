@@ -1,6 +1,8 @@
 import Immutable from 'immutable';
 import { default as initialState } from './initial-state';
 
+import memoize from 'lodash.memoize';
+
 function getVisibleRecordCount(state) {
   const rowHeight = state.getIn(['positionConfig', 'rowHeight']);
   const height = state.getIn(['currentPosition', 'height']);
@@ -72,13 +74,17 @@ export function setCurrentPosition(state, yScrollPosition, xScrollPosition) {
     .setIn(['currentPosition', 'xScrollChangePosition'], xScrollPosition);
 }
 
-export function updateRenderedData(state, helpers) {
+function nonCachedUpdateRenderedData(state, helpers) {
   const startDisplayIndex = state.getIn(['currentPosition', 'renderedStartDisplayIndex']);
   const columns = helpers.getDataColumns(state, data);
   const data = helpers.getDataSet(state);
 
   return state
     .set('renderedData', helpers.getVisibleDataColumns(data, columns)
-                          .skip(startDisplayIndex)
-                          .take(state.getIn(['currentPosition', 'renderedEndDisplayIndex']) - startDisplayIndex));
+    .skip(startDisplayIndex)
+    .take(state.getIn(['currentPosition', 'renderedEndDisplayIndex']) - startDisplayIndex));
 }
+
+export const updateRenderedData = memoize(nonCachedUpdateRenderedData, function(state){
+  return state.get('data').size === 0 ? -1 : state.getIn(['currentPosition', 'renderedStartDisplayIndex']).toString();
+});

@@ -9,6 +9,23 @@ class Table extends React.Component {
     this.state = {};
   }
 
+  areSameIds(data1, data2) {
+    return data1.every((element, index) => {
+      return data2[index].__metadata.griddleKey === element.__metadata.griddleKey
+    })
+  }
+
+  shouldComponentUpdate(nextProps) {
+    if(this.props.visibleData.length === nextProps.visibleData.length
+      && this.areSameIds(nextProps.visibleData, this.props.visibleData)
+      && this.props.currentPosition.renderedStartDisplayIndex !== 0
+      && this.props.currentPosition.renderedStartDisplayIndex === nextProps.currentPosition.renderedStartDisplayIndex) {
+      return false;
+    }
+
+    return true;
+  }
+
   componentDidMount() {
     this._scroll();
   }
@@ -64,7 +81,7 @@ class Table extends React.Component {
 
     const { className } = StyleHelpers.getStyleProperties(this.props, 'table');
     const headerContent = <this.props.components.TableHeading columns={Object.keys(this.props.data[0])} {...this.props} />;
-    //
+
     //translate the definition object to props for Heading / Body
     return this.props.data.length > 0 ? (
       <div>
