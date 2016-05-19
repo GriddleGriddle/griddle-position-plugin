@@ -86,5 +86,5 @@ function nonCachedUpdateRenderedData(state, helpers) {
 }
 
 export const updateRenderedData = memoize(nonCachedUpdateRenderedData, function(state){
-  return state.get('data').size === 0 ? -1 : state.getIn(['currentPosition', 'renderedStartDisplayIndex']).toString();
+  return state.get('data').size === 0 ? -1 : state.getIn(['currentPosition', 'renderedStartDisplayIndex']).toString() + state.getIn(['renderProperties', 'columnProperties']).hashCode();
 });
