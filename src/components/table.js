@@ -17,6 +17,7 @@ class Table extends React.Component {
 
   shouldComponentUpdate(nextProps) {
     if(this.props.visibleData.length === nextProps.visibleData.length
+      && this.props.visibleData === nextProps.visibleData
       && this.areSameIds(nextProps.visibleData, this.props.visibleData)
       && this.props.currentPosition.renderedStartDisplayIndex !== 0
       && this.props.currentPosition.renderedStartDisplayIndex === nextProps.currentPosition.renderedStartDisplayIndex) {
