@@ -80,9 +80,9 @@ function nonCachedUpdateRenderedData(state, helpers) {
   const data = helpers.getDataSet(state);
 
   return state
-    .set('renderedData', helpers.getVisibleDataColumns(data, columns)
-    .skip(startDisplayIndex)
-    .take(state.getIn(['currentPosition', 'renderedEndDisplayIndex']) - startDisplayIndex));
+    .set('renderedData', helpers.getVisibleDataColumns(data
+      .skip(startDisplayIndex)
+      .take(state.getIn(['currentPosition', 'renderedEndDisplayIndex']) - startDisplayIndex), columns));
 }
 
 export const updateRenderedData = memoize(nonCachedUpdateRenderedData, function(state){
