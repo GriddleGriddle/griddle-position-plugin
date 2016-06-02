@@ -1,6 +1,6 @@
 {
   "name": "griddle-position-plugin",
-  "version": "0.0.26",
+  "version": "0.0.27",
   "description": "A plugin for partial rendering of data.",
   "main": "./build/griddle-position-plugin.js",
   "scripts": {
@@ -19,7 +19,7 @@
     "babel-plugin-object-assign": "^1.2.0",
     "eslint": "^0.23",
     "eslint-plugin-react": "^2.2.0",
-    "griddle-core": "^0.0.15",
+    "griddle-core": "^0.0.25",
     "griddle-render": "^0.0.18",
     "jasmine-core": "^2.2.0",
     "karma": "^0.12.31",

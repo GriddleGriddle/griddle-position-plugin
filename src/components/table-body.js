@@ -42,7 +42,7 @@ class TableBody extends React.Component {
               rowProperties={renderProperties.rowProperties}
               styles={styles}
               settings={settings}
-              originalRowData={this.props.state.data[data.__metadata.index]}
+              originalRowData={this.props.state.data[data.__metadata.griddleKey]}
               ignoredColumns={renderProperties.ignoredColumns}
               columnProperties={renderProperties.columnProperties}
               // Position specific props
