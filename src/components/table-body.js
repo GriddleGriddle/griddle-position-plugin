@@ -29,6 +29,7 @@ class TableBody extends React.Component {
 
   render() {
     const { renderedData, loading, components, styles, settings, events, renderProperties, positionConfig } = this.props;
+
     //TODO: Share this part with the actual Griddle table-body component
     const rows = this.props.renderedData
           .filter(data => data.visible === undefined || data.visible === true)
@@ -42,7 +43,7 @@ class TableBody extends React.Component {
               rowProperties={renderProperties.rowProperties}
               styles={styles}
               settings={settings}
-              originalRowData={this.props.state.data[data.__metadata.griddleKey]}
+              originalRowData={this.props.state.data.filter(d => d.griddleKey === data.__metadata.griddleKey)[0]}
               ignoredColumns={renderProperties.ignoredColumns}
               columnProperties={renderProperties.columnProperties}
               // Position specific props
