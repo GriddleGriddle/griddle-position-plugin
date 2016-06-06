@@ -14,6 +14,13 @@ export function GRIDDLE_INITIALIZED_AFTER(state, action, helpers) {
   return helpers.updateRenderedData(sorted, helpers);
 }
 
+export function GRIDDLE_LOADED_DATA_AFTER(state, action, helpers) {
+  const sorted = helpers
+      .sortDataByColumns(helpers.updatePositionProperties(action, state, helpers), helpers)
+
+  const newState = helpers.updateRenderedData(sorted, helpers)
+  return newState;
+}
 export function GRIDDLE_GET_PAGE_AFTER(state, action, helpers) {
   const tempState = helpers.updatePositionProperties(action, state, helpers);
   return helpers.updateRenderedData(tempState, helpers);

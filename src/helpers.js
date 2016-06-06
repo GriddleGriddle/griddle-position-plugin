@@ -48,8 +48,12 @@ export function updatePositionProperties(action, state, helpers, force) {
     return state; // Indicate that this shouldn't result in an emit.
   }
 
-  const sizeUpdatedState = state.setIn(['currentPosition', 'height'], action.yVisible * 1.2)
-                                .setIn(['currentPosition', 'width'], action.xVisible);
+  const sizeUpdatedState = state.setIn(['currentPosition', 'height'], action.yVisible ?
+    action.yVisible * 1.2 :
+    state.getIn(['currentPosition', 'height'])
+  )
+  .setIn(['currentPosition', 'width'], action.xVisible || state.getIn(['currentPosition', 'width']));
+
   const visibleRecordCount = getVisibleRecordCount(sizeUpdatedState);
   const visibleDataLength = helpers.getDataSetSize(sizeUpdatedState);
 
