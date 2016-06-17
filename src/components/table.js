@@ -6,7 +6,7 @@ import debounce from 'lodash.debounce';
 class Table extends React.Component {
   constructor(props, context) {
     super(props, context);
-    this.state = {};
+    this.state = { disablePointerEvents: false };
   }
 
   areSameIds(data1, data2) {
@@ -15,12 +15,13 @@ class Table extends React.Component {
     })
   }
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps, nextState) {
     if(this.props.visibleData.length === nextProps.visibleData.length
       && this.props.visibleData === nextProps.visibleData
       && this.areSameIds(nextProps.visibleData, this.props.visibleData)
       && this.props.currentPosition.renderedStartDisplayIndex !== 0
-      && this.props.currentPosition.renderedStartDisplayIndex === nextProps.currentPosition.renderedStartDisplayIndex) {
+      && this.props.currentPosition.renderedStartDisplayIndex === nextProps.currentPosition.renderedStartDisplayIndex
+      && this.state.disablePointerEvents === nextState.disablePointerEvents) {
       return false;
     }
 
@@ -46,14 +47,26 @@ class Table extends React.Component {
     }
   }
 
-  _scroll = () => {
-    if (this.refs.scrollable) {
-      const { events } = this.props;
-      const scrollableNode = this.refs.scrollable;
+  _scroll = (event) => {
+    const { events, positionConfig } = this.props;
 
+    if (this.refs.scrollable) {
+      const scrollableNode = this.refs.scrollable;
       events.setScrollPosition(scrollableNode.scrollLeft, scrollableNode.scrollWidth, scrollableNode.clientWidth, scrollableNode.scrollTop, scrollableNode.scrollHeight, scrollableNode.clientHeight);
     }
+
+    if (event && positionConfig.disablePointerEventsOnScroll) {
+      if (!this.state.disablePointerEvents) {
+        this.setState({disablePointerEvents: true});
+      } else {
+        this.clearScrolling();
+      }
+    }
   }
+
+  clearScrolling = debounce(() => {
+    this.setState({disablePointerEvents: false});
+  }, 500);
 
   render() {
     const { positionConfig, settings, styles } = this.props;
@@ -73,11 +86,14 @@ class Table extends React.Component {
     const style = styles.getStyle({
       styles: styles.inlineStyles,
       styleName: 'table',
-      mergeStyles: settings.useFixedTable && styles.getStyle({
-        useStyles: settings.useGriddleStyles,
-        styles: styles.inlineStyles,
-        styleName: 'fixedTable',
-      })
+      mergeStyles: {
+        ...settings.useFixedTable && styles.getStyle({
+          useStyles: settings.useGriddleStyles,
+          styles: styles.inlineStyles,
+          styleName: 'fixedTable',
+        }),
+        pointerEvents: this.state.disablePointerEvents ? 'none' : 'auto'
+      }
     });
 
     const { className } = StyleHelpers.getStyleProperties(this.props, 'table');

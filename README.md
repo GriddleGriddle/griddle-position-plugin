@@ -18,7 +18,8 @@ tableHeight: 500, // The height of the table
 tableWidth: null, // The width of the table
 rowHeight: 30, // The minimum row height
 defaultColumnWidth: null, // The minimum column width
-fixedHeader: true // Whether or not the header should be fixed
+fixedHeader: true, // Whether or not the header should be fixed
+disablePointerEvents: false // Disable pointer events while scrolling to improve performance
 ```
 
 ## Planned Features
