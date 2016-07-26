@@ -14,12 +14,24 @@ const optionalConfig = {...};
 ## Configuration
 Optional configuration values (and their defaults)
 ```
-tableHeight: 500, // The height of the table
-tableWidth: null, // The width of the table
-rowHeight: 30, // The minimum row height
-defaultColumnWidth: null, // The minimum column width
-fixedHeader: true, // Whether or not the header should be fixed
-disablePointerEvents: false // Disable pointer events while scrolling to improve performance
+import PositionPlugin from 'griddle-position-plugin';
+...
+const settings = {
+  // The height of the table
+  tableHeight: 500,
+  // The width of the table
+  tableWidth: null,
+  // The minimum row height
+  rowHeight: 30,
+  // The minimum column width
+  defaultColumnWidth: null,
+  // Whether or not the header should be fixed
+  fixedHeader: true,
+  // Disable pointer events while scrolling to improve performance
+  disablePointerEvents: false
+};
+...
+<Griddle data={data} plugins={[PositionPlugin(settings)]}/>
 ```
 
 ## Planned Features
