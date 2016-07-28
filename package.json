@@ -1,6 +1,6 @@
 {
   "name": "griddle-position-plugin",
-  "version": "0.0.31",
+  "version": "0.0.32",
   "description": "A plugin for partial rendering of data.",
   "main": "./build/griddle-position-plugin.js",
   "scripts": {
