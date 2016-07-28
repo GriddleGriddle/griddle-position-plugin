@@ -44,8 +44,14 @@ class SpacerRow extends React.Component {
         {Object.keys(renderedData.length > 0 ? renderedData[0] : renderedData.columnProperties)
             .filter(k => renderProperties.metadataColumn !== k)
             .map(columnName => {
+
           const columnProperty = this.getColumnPropertyObject(renderProperties.columnProperties, columnName);
-          return <td key={columnName} {...columnProperty} className={columnProperty.cssClassName}></td>
+
+          const columnCssClass = columnProperty && columnProperty.cssClassName ?
+            columnProperty.cssClassName :
+            null;
+
+          return <td key={columnName} {...columnProperty} className={columnCssClass}></td>
         })}
       </tr>
     );

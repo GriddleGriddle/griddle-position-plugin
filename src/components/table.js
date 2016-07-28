@@ -32,6 +32,12 @@ class Table extends React.Component {
     this._scroll();
   }
 
+  componentWillUpdate() {
+    if(this.state.disablePointerEvents) {
+      this.clearScrolling();
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     this._checkToLoadNewPage(nextProps);
   }
