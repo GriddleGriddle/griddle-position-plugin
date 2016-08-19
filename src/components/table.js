@@ -64,9 +64,10 @@ class Table extends React.Component {
     if (event && positionConfig.disablePointerEventsOnScroll) {
       if (!this.state.disablePointerEvents) {
         this.setState({disablePointerEvents: true});
-      } else {
-        this.clearScrolling();
       }
+
+      // Clear disable pointer events after scroll events stop for a period of time.
+      this.clearScrolling();
     }
   }
 
