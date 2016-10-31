@@ -1,3 +1,7 @@
+## :warning: Deprecated :warning:
+
+###  Please find 1.0 updates in the [1.0-combined](https://github.com/GriddleGriddle/Griddle/tree/1.0-combined) branch.
+
 # Griddle Position Plugin (BETA)
 
 The position plugin allows you to add infinite scrolling and other position-specific functionality to the grid.
